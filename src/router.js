@@ -1,9 +1,10 @@
 import Vue from "vue";
 import Router from "vue-router";
 import Login from "./views/Login.vue";
-import Lndex from "./views/Index.vue"
+import Index from "./views/Index.vue"
 import Registe from "./views/Registe.vue"
 import Point from "./views/Point.vue"
+import BoxList from "./views/BoxList.vue"
 
 import notFound from "./components/404.vue";
 
@@ -31,8 +32,13 @@ export default new Router({
       component: Point
     },
     {
+      path: "/boxlist",
+      name: "boxlist",
+      component: BoxList
+    },
+    {
       path: "/index",
-      component: Lndex,
+      component: Index,
       children: [
         {
           path: "/404",

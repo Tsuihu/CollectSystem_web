@@ -1,9 +1,8 @@
 <template>
   <div class="point">
-    <h1>选择采集地点</h1>
-    <hr>
+    <Tabbar><h1>选择采集地点</h1></Tabbar>
     <van-search
-      v-model="value"
+      v-model="pointName"
       show-action
       label="地址"
       placeholder="请输入采集点"
@@ -26,7 +25,7 @@
           offset="58"
           :immediate-check="false">
           <div class="item" v-for="(item, index) in pointList" :key="index">
-            <router-link class="item_point" to="/box">{{item.pointName}}</router-link>
+            <p @click="jumpBoxlist(item.pointId)" class="item_point">{{item.pointName}}</p>
           </div>
         </van-list>
       </van-pull-refresh>
@@ -42,12 +41,15 @@
 import { Search,List,PullRefresh,Button } from 'vant';
 import api from "@/axios/api.js";
 import comm from "@/common/comm.js"
+import Tabbar from '../components/Tabbar.vue'
+
 export default {
   name: 'point',
   data() {
     return {
       pointList: [],
-      value: '',
+      pointListAll: [],
+      pointName: '',
       loading: false, //上拉加载
       finished: false, //上拉加载完毕
       refreshing: false, //下拉刷新
@@ -58,6 +60,7 @@ export default {
     [List.name]: List,
     [PullRefresh.name]: PullRefresh,
     [Button.name]: Button,
+    Tabbar
   },
   methods: {
     getAllPoint(){
@@ -65,15 +68,30 @@ export default {
         if (res.code == comm.RESULT_CODE.SUCCESS) {
           this.pointList = res.data
         }
-        console.log(this.pointList)
       })
     },
-    onClickButton(){},
+    onClickButton(){
+      var pointForm = {
+        pointName: this.pointName
+      }
+      api.post('/point/getLikeName.do',pointForm)
+        .then(res => {
+          this.pointList = res.data
+        })
+    },
     onSearch(){},
     onRefresh() { //下拉刷新
       this.getAllPoint()
     },
-    
+    jumpBoxlist(pointId){
+      console.log(pointId)
+      this.$router.push({
+        name: 'boxlist',
+        params: {
+          pointId:pointId
+        }
+      })
+    }
   },
   created() {
     this.getAllPoint()
@@ -85,9 +103,10 @@ export default {
 .point {
   h1 {
     text-align: center;
-    margin-top: 40/40rem;
+    line-height: 82/40rem;
     font-weight: normal;
-    font-size: 40/40rem;
+    font-size: 35/40rem;
+    color: white;
   }
   hr {
     width: 90%;

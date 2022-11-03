@@ -1,27 +1,29 @@
 <template>
   <div class="login">
-    <h1>账号登录</h1>
-    <van-form class="form_login" @submit="onSubmit">
-      <van-cell-group inset>
-        <van-field 
-          v-model="loginForm.tel" 
-          name="手机号" 
-          label="手机号" 
-          placeholder="手机号"
-          :rules="[{ required: true, message: '请填写手机号' }]" />
-        <van-field 
-          v-model="loginForm.password" 
-          type="password" 
-          name="密码" 
-          label="密码" 
-          placeholder="密码"
-          :rules="[{ required: true, message: '请填写密码' }]" />
-      </van-cell-group>
-      <van-button class="btn_login" round block type="primary" native-type="submit">
-        登录
-      </van-button>
-    </van-form>
-    <p>还没有账号？点击<router-link class="btn_registe" to="/registe">注册</router-link></p>
+    <div class="container">
+      <h1>账号登录</h1>
+      <van-form class="form_login" @submit="onSubmit">
+        <van-cell-group inset>
+          <van-field 
+            v-model="loginForm.tel" 
+            name="手机号" 
+            label="手机号" 
+            placeholder="手机号"
+            :rules="[{ required: true, message: '请填写手机号' }]" />
+          <van-field 
+            v-model="loginForm.password" 
+            type="password" 
+            name="密码" 
+            label="密码" 
+            placeholder="密码"
+            :rules="[{ required: true, message: '请填写密码' }]" />
+        </van-cell-group>
+        <van-button class="btn_login" round block type="primary" native-type="submit">
+          登录
+        </van-button>
+      </van-form>
+      <p>还没有账号？点击<router-link class="btn_registe" to="/registe">注册</router-link></p>
+    </div>
   </div>
 </template>
 
@@ -62,9 +64,9 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.login {
+.container {
   padding: 30/40rem;
-  h1{
+  h1 {
     margin-top: 100/40rem;
     text-align: center;
     font-size: 55/40rem;
