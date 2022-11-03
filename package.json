@@ -9,6 +9,8 @@
   },
   "dependencies": {
     "axios": "^0.21.4",
+    "echarts": "^4.9.0",
+    "v-charts": "^1.19.0",
     "vant": "^2.12.50",
     "vue": "^2.6.12",
     "vue-router": "^3.5.1"
@@ -22,6 +24,8 @@
     "babel-eslint": "^10.1.0",
     "eslint": "^5.8.0",
     "eslint-plugin-vue": "^5.2.3",
+    "less": "^3.13.1",
+    "less-loader": "^5.0.0",
     "stylus": "^0.54.8",
     "stylus-loader": "^3.0.2",
     "vue-template-compiler": "^2.6.12",

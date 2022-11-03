@@ -1,7 +1,9 @@
 import Vue from "vue";
 import Router from "vue-router";
-import Login from "./views/login.vue";
-import index from "./views/index.vue"
+import Login from "./views/Login.vue";
+import Lndex from "./views/Index.vue"
+import Registe from "./views/Registe.vue"
+import Point from "./views/Point.vue"
 
 import notFound from "./components/404.vue";
 
@@ -10,22 +12,27 @@ Vue.use(Router);
 export default new Router({
   routes: [
     {
-      path: "/",
+      path: '/',
+      redirect: Login
+    },
+    {
+      path: "/login",
       name: 'login',
       component: Login,
     },
     {
+      path: "/registe",
+      name: "registe",
+      component: Registe
+    },
+    {
+      path: "/point",
+      name: "point",
+      component: Point
+    },
+    {
       path: "/index",
-      component: index,
-      // beforeEnter: (to, from, next) => {
-      //   if (!window.sessionStorage.userInfo) {
-      //     next({
-      //       path: "/login",
-      //     });
-      //   } else {
-      //     next();
-      //   }
-      // },
+      component: Lndex,
       children: [
         {
           path: "/404",
