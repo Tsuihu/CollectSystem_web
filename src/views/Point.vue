@@ -1,6 +1,10 @@
 <template>
   <div class="point">
-    <Tabbar><h1>选择采集地点</h1></Tabbar>
+    <Tabbar>
+      <template slot="title">
+        <h1>选择采集地点</h1>
+      </template>
+    </Tabbar>
     <van-search
       v-model="pointName"
       show-action
@@ -63,6 +67,7 @@ export default {
     Tabbar
   },
   methods: {
+    // 获取所有地点
     getAllPoint(){
       api.post('/point/getAllPoint.do').then(res => {
         if (res.code == comm.RESULT_CODE.SUCCESS) {
@@ -70,13 +75,16 @@ export default {
         }
       })
     },
+    // 搜索
     onClickButton(){
       var pointForm = {
         pointName: this.pointName
       }
       api.post('/point/getLikeName.do',pointForm)
         .then(res => {
+          if (res.code == comm.RESULT_CODE.SUCCESS) {
           this.pointList = res.data
+        }
         })
     },
     onSearch(){},
@@ -84,10 +92,9 @@ export default {
       this.getAllPoint()
     },
     jumpBoxlist(pointId){
-      console.log(pointId)
       this.$router.push({
         name: 'boxlist',
-        params: {
+        query: {
           pointId:pointId
         }
       })
@@ -101,13 +108,7 @@ export default {
 
 <style lang="less">
 .point {
-  h1 {
-    text-align: center;
-    line-height: 82/40rem;
-    font-weight: normal;
-    font-size: 35/40rem;
-    color: white;
-  }
+  
   hr {
     width: 90%;
     border: 2/40rem solid #ddd;

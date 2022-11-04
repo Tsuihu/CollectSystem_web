@@ -6,7 +6,8 @@ import router from '../router';
 axios.defaults.timeout = 30000;
 axios.defaults.baseURL = comm.SERVER_PATH;
 axios.defaults.headers = {
-  "X-Requested-With": "XMLHttpRequest"
+  "X-Requested-With": "XMLHttpRequest",
+  // 'Content-Type':"application/x-www-form-urlencoded",
 };
 
 function callback(res, resolve) {
@@ -70,6 +71,7 @@ export default {
     Toast.loading({
       message: '加载中...',
       forbidClick: true,
+      duration: 300
     });
     return new Promise((resolve, reject) => {
       axios({

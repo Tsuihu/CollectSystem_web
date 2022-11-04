@@ -1,7 +1,6 @@
 import Vue from "vue";
 import Router from "vue-router";
 import Login from "./views/Login.vue";
-import Index from "./views/Index.vue"
 import Registe from "./views/Registe.vue"
 import Point from "./views/Point.vue"
 import BoxList from "./views/BoxList.vue"
@@ -36,19 +35,6 @@ export default new Router({
       name: "boxlist",
       component: BoxList
     },
-    {
-      path: "/index",
-      component: Index,
-      children: [
-        {
-          path: "/404",
-          component: notFound,
-        },
-        {
-          path: "*",
-          redirect: "/404",
-        },
-      ],
-    },
+    
   ],
 });

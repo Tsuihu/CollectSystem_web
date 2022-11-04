@@ -50,11 +50,12 @@ export default {
   },
   methods: {
     onSubmit() {
-      api.post("/collector/login.do", this.loginForm).then(res => {
+      api.post("/collector/login.do",this.loginForm).then(res => {
         if (res.code == comm.RESULT_CODE.SUCCESS) {
-          sessionStorage.userInfo = JSON.stringify(res.data);
-          //     为了静态情况下能够进入到桌面,而写的代码，前端和后端登录功能实现后下面的代码应删除
-          // window.sessionStorage.userInfo = JSON.stringify({ userId: 1, loginId: 'test', userName: 'test' });
+          // 把采集员信息保存到vuex中
+          // this.$store.dispatch('info',res.data)
+          // 把采集员信息保存到session中
+          sessionStorage.setItem('collectors',JSON.stringify(res.data))
           this.$router.push("/point");
         }
       });

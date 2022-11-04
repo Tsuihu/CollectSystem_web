@@ -3,6 +3,7 @@ import App from "./App.vue";
 import router from "./router";
 import { Toast } from 'vant';
 import comm from "./common/comm";
+import store from './store/index'
 
 import "./styles/global.styl";
 import 'vant/es/toast/style';
@@ -108,6 +109,7 @@ Vue.filter("date", function(value, fmt = "YYYY-MM-DD HH:mm:ss") {
 });
 const app = new Vue({
   router,
+  store,
   render: h => h(App)
 });
 app.$mount("#app");
