@@ -9,22 +9,6 @@
       </template>
     </Tabbar>
 
-    <!-- <div class="idcard_type">
-      <span class="span">证件类型:</span>
-      <van-radio-group :icon-size="20" class="idcard_type" v-model="checked">
-        <van-radio name="身份证">身份证</van-radio>
-        <van-radio name="户口本">户口本</van-radio>
-        <van-radio name="护照">护照</van-radio>
-      </van-radio-group>
-    </div> -->
-    <!-- <div class="idcard">
-      <van-cell-group inset>
-        <van-field v-model="text" label="证件号" />
-        <van-field v-model="text" label="姓名" />
-        <van-field v-model="text" label="电话" />
-      </van-cell-group>
-    </div> -->
-
     <van-form class="people_form" @submit="onSubmit">
       <van-field class="form_radio" name="idcardType" label="证件类型">
         <template #input>
@@ -64,12 +48,11 @@
         <van-button class="form_submit" round block type="primary" native-type="submit">
           提交
         </van-button>
-        <van-button class="form_delete" round block>
-          删除
-        </van-button>
       </div>
     </van-form>
-
+    <van-button @click="deleteInfo" class="form_delete" round block>
+      删除
+    </van-button>
   </div>
 </template>
 
@@ -101,19 +84,27 @@ export default {
   },
   methods: {
     back() {
-      this.$router.back()
+      this.$router.push('/people')
     },
+    // 添加个人信息并跳转
     onSubmit(values) {
-      console.log(values)
       api.post('/people/addPeople.do',values).then(res => {
         if (res.code == comm.RESULT_CODE.SUCCESS) {
           console.log(res)
+          this.$router.push('/people')
+          // this.$router.push({
+          //   name: 'people',
+          //   query: {
+          //     testtubeId: this.$route.query.testtubeId
+          //   }
+          // })
         }
       })
+    },
+    // 清空表中信息
+    deleteInfo() {
+      this.peopleFrom = {}
     }
-  },
-  created() {
-    console.log(this.$route.query.testtubeId)
   }
 }
 </script>
@@ -139,30 +130,12 @@ export default {
     .form_submit {
       margin-top: 100/40rem;
     }
-    .form_delete {
-      margin-top: 20/40rem;
-      background-color: #D9001B;
-      color: white;
-    }
   }
-
-  // .idcard_type {
-  //   margin-top: 100/40rem;
-  //   .span {
-  //     font-size: 30/40rem;
-  //     margin-left: 100/40rem;
-  //     }
-  //   .idcard_type {
-  //     margin-top: 0;
-  //     font-size: 30/40rem;
-  //     width: 200/40rem;
-  //     padding: 20/40rem;
-  //     margin-left: 300/40rem;
-  //   }
-  // }
-
-  // .idcard {
-  //   margin-top: 100/40rem;
-  // }
+  .form_delete {
+    width: 92%;
+    margin: 20/40rem auto;
+    background-color: #D9001B;
+    color: white;
+  }
 }
 </style>

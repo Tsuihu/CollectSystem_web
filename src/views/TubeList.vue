@@ -56,7 +56,7 @@
 
 <script>
 import Tabbar from '../components/Tabbar.vue'
-import { Button,List,Field, CellGroup,Overlay,RadioGroup, Radio } from 'vant';
+import { Button,List,Field, CellGroup,Overlay,RadioGroup, Radio, Toast } from 'vant';
 import api from "@/axios/api.js";
 import comm from "@/common/comm.js"
 export default {
@@ -81,14 +81,15 @@ export default {
   },
   methods: {
     back() {
-      this.$router.back()
+      this.$router.push('/boxlist')
     },
     reflush() {
       this.getAllTubeList()
     },
     // 获取所有管信息
     getAllTubeList() {
-      api.post(`/testtube/getAllTube.do?boxId=${this.$route.query.boxId}`).then(res => {
+      let boxId = sessionStorage.getItem('boxId')
+      api.post(`/testtube/getAllTube.do?boxId=${boxId}`).then(res => {
         if (res.code == comm.RESULT_CODE.SUCCESS) {
           this.tubeList = res.data
           this.testtubeCode = res.data.testtubeCode
@@ -117,18 +118,20 @@ export default {
     },
     // 封箱
     closeBox() {
-      api.post(`/box/closeBox.do?boxId=${this.$route.query.boxId}`).then(res => {
+      let boxId = sessionStorage.getItem('boxId')
+      api.post(`/box/closeBox.do?boxId=${boxId}`).then(res => {
         console.log(res)
+        if(res.data.status == 1) {
+            Toast('已封箱')
+          }else {
+            Toast('封箱成功')
+          }
       })
     },
     jumpPeoplelist(testtubeId,testtubeCode) {
-      this.$router.push({
-        name: 'people',
-        query: {
-          testtubeId: testtubeId,
-          testtubeCode: testtubeCode
-        }
-      })
+      sessionStorage.setItem('testtubeId',testtubeId)
+      sessionStorage.setItem('testtubeCode',testtubeCode)
+      this.$router.push('/people')
     }
   },
   created() {

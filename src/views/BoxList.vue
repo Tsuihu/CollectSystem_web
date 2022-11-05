@@ -73,7 +73,7 @@ export default {
   methods: {
     // 返回
     back(){
-      this.$router.back()
+      this.$router.push('/point')
     },
     // 刷新
     reflush() {
@@ -81,7 +81,8 @@ export default {
     },
     // 获取转运箱列表
     getBoxList() {
-      api.post(`/box/getAllBox.do?pointId=${this.$route.query.pointId}`,).then(res => {
+      let pointId = sessionStorage.getItem('pointId')
+      api.post(`/box/getAllBox.do?pointId=${pointId}`,).then(res => {
         if (res.code == comm.RESULT_CODE.SUCCESS) {
           this.boxList = res.data
         }
@@ -108,12 +109,14 @@ export default {
     scanBox() {},
     // 跳转到管列表
     jumpTubelist(boxId) {
-      this.$router.push({
-        name: 'tubelist',
-        query: {
-          boxId:boxId
-        }
-      })
+      sessionStorage.setItem('boxId',boxId)
+      this.$router.push('/tubelist')
+      // this.$router.push({
+      //   name: 'tubelist',
+      //   query: {
+      //     boxId:boxId
+      //   }
+      // })
     }
   },
   created() {

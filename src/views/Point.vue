@@ -88,12 +88,8 @@ export default {
       this.getAllPoint()
     },
     jumpBoxlist(pointId){
-      this.$router.push({
-        name: 'boxlist',
-        query: {
-          pointId:pointId
-        }
-      })
+      sessionStorage.setItem('pointId',pointId)
+      this.$router.push('/boxlist')
     }
   },
   created() {
