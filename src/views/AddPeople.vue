@@ -26,35 +26,35 @@
     </div> -->
 
     <van-form class="people_form" @submit="onSubmit">
-      <van-field class="form_radio" name="radio" label="证件类型">
+      <van-field class="form_radio" name="idcardType" label="证件类型">
         <template #input>
-          <van-radio-group v-model="checked">
-            <van-radio name="证件号">证件号</van-radio>
-            <van-radio name="姓名">姓名</van-radio>
-            <van-radio name="电话">电话</van-radio>
+          <van-radio-group v-model="peopleFrom.idcardType">
+            <van-radio name="0">证件号</van-radio>
+            <van-radio name="1">户口本</van-radio>
+            <van-radio name="2">护照</van-radio>
           </van-radio-group>
         </template>
       </van-field>
       <van-cell-group inset>
         <van-field
-          v-model="idcard"
-          name="证件号"
+          v-model="peopleFrom.idcard"
+          name="idcard"
           label="证件号"
           placeholder="证件号"
           :rules="[{ required: true, message: '请填写证件号' }]"
         />
         <van-field
-          v-model="name"
+          v-model="peopleFrom.name"
           type="text"
-          name="姓名"
+          name="name"
           label="姓名"
           placeholder="姓名"
           :rules="[{ required: true, message: '请填写姓名' }]"
         />
         <van-field
-          v-model="tel"
+          v-model="peopleFrom.tel"
           type="text"
-          name="电话"
+          name="tel"
           label="电话"
           placeholder="电话"
           :rules="[{ required: true, message: '请填写电话' }]"
@@ -76,14 +76,18 @@
 <script>
 import { Button,RadioGroup, Radio,Field, CellGroup,Form } from 'vant';
 import Tabbar from '../components/Tabbar.vue'
+import api from "@/axios/api.js";
+import comm from "@/common/comm.js"
 export default {
   name: 'addpeople',
   data() {
     return {
-      checked: '',
-      name: '',
-      idcard: '',
-      tel: ''
+      peopleFrom: {
+        idcardType: '',
+        name: '',
+        idcard: '',
+        tel: ''
+      }
     }
   },
   components: {
@@ -99,8 +103,13 @@ export default {
     back() {
       this.$router.back()
     },
-    onSubmit() {
-
+    onSubmit(values) {
+      console.log(values)
+      api.post('/people/addPeople.do',values).then(res => {
+        if (res.code == comm.RESULT_CODE.SUCCESS) {
+          console.log(res)
+        }
+      })
     }
   },
   created() {

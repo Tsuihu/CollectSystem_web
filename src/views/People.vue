@@ -47,13 +47,8 @@ export default {
   name: 'tubelist',
   data() {
     return {
-      peopleList: [
-        {name:"张胜男"},
-        {name:"张三"},
-        {name:"李四"},
-      ],
+      peopleList: [],
       testtubeCode: '',
-      checked: ''
     }
   },
   components: {
@@ -72,10 +67,21 @@ export default {
       this.getAllTubeList()
     },
     // 封管
-    closeTube() {},
-    // 获取所有管信息
+    closeTube() {
+      api.post(`/testtube/closeTube.do?testtubeId=${this.$route.query.testtubeId}`).then(res => {
+        if (res.code == comm.RESULT_CODE.SUCCESS) {
+          console.log(res)
+        }
+      })
+    },
+    // 获取所有人信息
     getAllTubeList() {
-      
+      // console.log(this.$route.query.testtubeId)
+      api.post(`/people/getAllPeople.do?testtubeId=${this.$route.query.testtubeId}`).then(res => {
+        if (res.code == comm.RESULT_CODE.SUCCESS) {
+          this.peopleList = res.data
+        }
+      })
     },
     scanPeople() {},
     // 手动输入添加人员信息
