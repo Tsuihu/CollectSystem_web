@@ -49,7 +49,7 @@
 
 <script>
 import Tabbar from '../components/Tabbar.vue'
-import { Button,List,Field, CellGroup,Overlay } from 'vant';
+import { Button,List,Field, CellGroup,Overlay, Toast } from 'vant';
 import api from "@/axios/api.js";
 import comm from "@/common/comm.js"
 export default {
@@ -95,12 +95,13 @@ export default {
     // 手动输入添加一个箱子
     addBox(){
       let info = {
-        pointId: this.$route.query.pointId,
+        pointId: sessionStorage.getItem('pointId'),
         boxCode: this.boxCode,
         collectorId: JSON.parse(sessionStorage.getItem('collectors')).collectorId
       }
       api.post('/box/addBox.do',info).then(res => {
         console.log(res)
+        Toast('开箱成功')
         this.isShow = false
         this.getBoxList()
       })

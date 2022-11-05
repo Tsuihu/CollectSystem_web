@@ -101,13 +101,14 @@ export default {
     // 手动添加管
     addTube() {
       let info = {
-        boxId: this.$route.query.boxId,
+        boxId: sessionStorage.getItem('boxId'),
         testtubeCode: this.testtubeCode,
         collectType: this.checked
       }
       console.log(info)
       api.post('/testtube/addTube.do',info).then(res => {
         console.log(res)
+        Toast('开管成功')
         this.isShow = false
         this.getAllTubeList()
       })
