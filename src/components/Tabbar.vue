@@ -41,7 +41,7 @@ export default {
   h1 {
     line-height: 82/40rem;
     font-weight: normal;
-    font-size: 35/40rem;
+    font-size: 33/40rem;
     color: white;
   }
 }

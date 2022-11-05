@@ -33,10 +33,6 @@
           </div>
         </van-list>
       </van-pull-refresh>
-
-      <van-button class="btn_point" round block type="primary" native-type="submit">
-        确定
-      </van-button>
     </div>
   </div>
 </template>

@@ -22,7 +22,7 @@
           :immediate-check="false">
           <div class="item" v-for="(item, index) in boxList" :key="index">
             <p @click="jumpTubelist(item.boxId)" class="item_box">
-              {{item.boxCode}} {{item.status = 1 ? "【已开箱】" : "【已封箱】"}}
+              {{item.boxCode}} {{item.status == 1 ? "【已封箱】" : "【已开箱】"}}
             </p>
           </div>
         </van-list>
@@ -93,7 +93,6 @@ export default {
     },
     // 手动输入添加一个箱子
     addBox(){
-      // console.log(this.boxCode)
       let info = {
         pointId: this.$route.query.pointId,
         boxCode: this.boxCode,
@@ -110,7 +109,7 @@ export default {
     // 跳转到管列表
     jumpTubelist(boxId) {
       this.$router.push({
-        name: 'boxlist',
+        name: 'tubelist',
         query: {
           boxId:boxId
         }
