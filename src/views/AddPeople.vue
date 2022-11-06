@@ -57,7 +57,7 @@
 </template>
 
 <script>
-import { Button,RadioGroup, Radio,Field, CellGroup,Form } from 'vant';
+import { Button,RadioGroup, Radio,Field, CellGroup,Form, Toast } from 'vant';
 import Tabbar from '../components/Tabbar.vue'
 import api from "@/axios/api.js";
 import comm from "@/common/comm.js"
@@ -89,15 +89,12 @@ export default {
     // 添加个人信息并跳转
     onSubmit(values) {
       api.post('/people/addPeople.do',values).then(res => {
+        console.log(res)
         if (res.code == comm.RESULT_CODE.SUCCESS) {
-          console.log(res)
+          Toast('添加成功')
           this.$router.push('/people')
-          // this.$router.push({
-          //   name: 'people',
-          //   query: {
-          //     testtubeId: this.$route.query.testtubeId
-          //   }
-          // })
+        }else {
+          Toast('此管已封，请重新开管')
         }
       })
     },

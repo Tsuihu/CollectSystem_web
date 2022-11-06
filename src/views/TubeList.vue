@@ -108,9 +108,16 @@ export default {
       console.log(info)
       api.post('/testtube/addTube.do',info).then(res => {
         console.log(res)
-        Toast('开管成功')
-        this.isShow = false
-        this.getAllTubeList()
+        if (res.code == comm.RESULT_CODE.LOGIN_ERROR) {
+          Toast('此箱已封，请重新开箱')
+          this.isShow = false
+          this.checked = '',
+          this.testtubeCode = ''
+        }else {
+          Toast('开管成功')
+          this.isShow = false
+          this.getAllTubeList()
+        }
       })
     },
     // 开管
