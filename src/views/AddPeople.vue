@@ -91,10 +91,12 @@ export default {
       api.post('/people/addPeople.do',values).then(res => {
         console.log(res)
         if (res.code == comm.RESULT_CODE.SUCCESS) {
-          Toast('添加成功')
-          this.$router.push('/people')
+          Toast(res.errMsg)
+          setTimeout(() => {
+            this.$router.push('/people')
+          },500)
         }else {
-          Toast('此管已封，请重新开管')
+          Toast(res.errMsg)
         }
       })
     },
