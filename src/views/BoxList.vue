@@ -17,16 +17,20 @@
       </van-button>
       <div class="box_list">
         <van-tag type="success" size="medium">请选择转运箱</van-tag>
-        <van-list
-          finished-text="没有更多啦"
-          offset="58"
-          :immediate-check="false">
-          <div class="item" v-for="(item, index) in boxList" :key="index">
-            <p @click="jumpTubelist(item.boxId)" class="item_box">
-              {{item.boxCode}} {{item.status == 1 ? "【已封箱】" : "【已开箱】"}}
-            </p>
-          </div>
-        </van-list>
+        <van-pull-refresh 
+          v-model="refreshing" 
+          @refresh="onRefresh" >
+            <van-list
+            finished-text="没有更多啦"
+            offset="58"
+            :immediate-check="false">
+            <div class="item" v-for="(item, index) in boxList" :key="index">
+              <p @click="jumpTubelist(item.boxId)" class="item_box">
+                {{item.boxCode}} {{item.status == 1 ? "【已封箱】" : "【已开箱】"}}
+              </p>
+            </div>
+          </van-list>
+        </van-pull-refresh>
       </div>
     </div>
     <van-overlay :show="isShow" @click="isShow = false">
@@ -50,7 +54,7 @@
 
 <script>
 import Tabbar from '../components/Tabbar.vue'
-import { Button,List,Field, CellGroup,Overlay, Toast,Tag } from 'vant';
+import { Button,List,Field, CellGroup,Overlay, Toast,Tag,PullRefresh } from 'vant';
 import api from "@/axios/api.js";
 import comm from "@/common/comm.js"
 export default {
@@ -60,7 +64,8 @@ export default {
       boxList: [],
       boxCode: '',
       collectorId: '',
-      isShow: false
+      isShow: false,
+      refreshing: false
     }
   },
   components: {
@@ -70,7 +75,8 @@ export default {
     [Field.name]:Field,
     [CellGroup.name]:CellGroup,
     [Overlay.name]:Overlay,
-    [Tag.name]:Tag
+    [Tag.name]:Tag,
+    [PullRefresh.name]:PullRefresh
   },
   methods: {
     // 返回
@@ -80,6 +86,11 @@ export default {
     // 刷新
     reflush() {
       this.getBoxList()
+    },
+    // 下拉刷新
+    onRefresh() {
+      this.getBoxList()
+      this.refreshing = false
     },
     // 获取转运箱列表
     getBoxList() {

@@ -13,7 +13,6 @@
       show-action
       label="地址"
       placeholder="请输入采集点"
-      @search="onSearch"
       class="input_search"
     >
     <template class="btn_search" #action>
@@ -83,13 +82,15 @@ export default {
       api.post('/point/getLikeName.do',pointForm)
         .then(res => {
           if (res.code == comm.RESULT_CODE.SUCCESS) {
-          this.pointList = res.data
-        }
+            this.pointList = res.data
+          }
         })
+      this.pointName = ""
     },
     onSearch(){},
     onRefresh() { //下拉刷新
       this.getAllPoint()
+      this.refreshing = false
     },
     jumpBoxlist(pointId){
       sessionStorage.setItem('pointId',pointId)
