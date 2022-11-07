@@ -29,6 +29,13 @@
             label="身份证" 
             placeholder="身份证"
             :rules="[{ required: true, message: '请填写身份证号码' }]" />
+            <van-button @click="getAuthcode" class="btn_authcode" type="primary" size="mini">点击获取验证码</van-button>
+            <van-field 
+            v-model="RegisteForm.code" 
+            name="验证码" 
+            label="验证码" 
+            placeholder="验证码"
+            :rules="[{ required: true, message: '请输入验证码' }]" />
         </van-cell-group>
         <van-button class="btn_registe" round block type="primary" native-type="submit">
           注册
@@ -54,6 +61,7 @@ export default {
         name: '',
         idcard: '',
         organizationId: '',
+        code: ''
       }
     }
   },
@@ -64,12 +72,23 @@ export default {
     [Form.name]: Form,
   },
   methods: {
+    // 注册
     onSubmit() {
+      console.log(this.RegisteForm)
       api.post('/collector/registe.do',this.RegisteForm).then(res => {
         if (res.code == comm.RESULT_CODE.SUCCESS) {
           console.log(res)
           Toast('注册成功')
           this.$router.push("/login")
+        }
+      })
+    },
+    // 获取验证码
+    getAuthcode() {
+      api.post('/collector/sendMsg.do',this.RegisteForm).then(res => {
+        if (res.code == comm.RESULT_CODE.SUCCESS) {
+          console.log(res)
+          
         }
       })
     }
@@ -100,6 +119,10 @@ export default {
 
 .form_registe{
   margin-top: 100/40rem;
+  .btn_authcode {
+    border-radius: 20/40rem;
+    margin-left: 30/40rem;
+  }
 }
 .btn_login {
   margin-top: 100/40rem;
