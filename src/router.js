@@ -9,10 +9,11 @@ import People from "./views/People.vue"
 import AddPeople from "./views/AddPeople.vue"
 
 import notFound from "./components/404.vue";
+import { Toast } from "vant";
 
 Vue.use(Router);
 
-export default new Router({
+const router = new Router({
   routes: [
     {
       path: '/',
@@ -55,3 +56,19 @@ export default new Router({
     }
   ],
 });
+
+router.beforeEach((to,from,next) => {
+  // 判断是否需要权限
+  if(to.path == '/login' || to.path == '/') {
+    next()
+  }else {
+    if(sessionStorage.getItem('collectors')){
+      next()
+    }else{
+      Toast('请登录')
+      next('/login')
+    }
+  }
+})
+
+export default router

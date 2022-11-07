@@ -2,7 +2,7 @@
   <div class="boxlist">
     <Tabbar>
       <template slot="left">
-        <button @click="back" class="tab_btn"  size="mini">返回</button>
+        <van-button icon="arrow-left" @click="back" class="tab_btn"  size="mini">返回</van-button>
       </template>
       <template slot="title">
         <h1>转运箱列表</h1>
@@ -16,6 +16,7 @@
         开箱
       </van-button>
       <div class="box_list">
+        <van-tag type="success" size="medium">请选择转运箱</van-tag>
         <van-list
           finished-text="没有更多啦"
           offset="58"
@@ -49,7 +50,7 @@
 
 <script>
 import Tabbar from '../components/Tabbar.vue'
-import { Button,List,Field, CellGroup,Overlay, Toast } from 'vant';
+import { Button,List,Field, CellGroup,Overlay, Toast,Tag } from 'vant';
 import api from "@/axios/api.js";
 import comm from "@/common/comm.js"
 export default {
@@ -68,7 +69,8 @@ export default {
     [List.name]:List,
     [Field.name]:Field,
     [CellGroup.name]:CellGroup,
-    [Overlay.name]:Overlay
+    [Overlay.name]:Overlay,
+    [Tag.name]:Tag
   },
   methods: {
     // 返回
@@ -130,7 +132,7 @@ export default {
 .boxlist {
   .tab_btn {
     margin-top: 20/40rem;
-    width: 70/40rem;
+    width: 100/40rem;
     height: 40/40rem;
     font-size: 20/40rem;
     background-color: #07C160;

@@ -4,6 +4,9 @@
       <template slot="title">
         <h1>选择采集地点</h1>
       </template>
+      <template slot="right">
+        <button @click="logout" class="tab_btn" size="mini">退出</button>
+      </template>
     </Tabbar>
     <van-search
       v-model="pointName"
@@ -17,8 +20,8 @@
       <div @click="onClickButton">搜索</div>
     </template>
     </van-search>
-
     <div class="point_list">
+      <van-tag type="success" size="medium">请选择采集点</van-tag>
       <van-pull-refresh 
         v-model="refreshing" 
         @refresh="onRefresh" >
@@ -38,7 +41,7 @@
 </template>
 
 <script>
-import { Search,List,PullRefresh,Button } from 'vant';
+import { Search,List,PullRefresh,Button,Tag  } from 'vant';
 import api from "@/axios/api.js";
 import comm from "@/common/comm.js"
 import Tabbar from '../components/Tabbar.vue'
@@ -60,6 +63,7 @@ export default {
     [List.name]: List,
     [PullRefresh.name]: PullRefresh,
     [Button.name]: Button,
+    [Tag.name]: Tag,
     Tabbar
   },
   methods: {
@@ -90,6 +94,11 @@ export default {
     jumpBoxlist(pointId){
       sessionStorage.setItem('pointId',pointId)
       this.$router.push('/boxlist')
+    },
+    // 退出
+    logout() {
+      sessionStorage.removeItem('collectors')
+      this.$router.push('/login')
     }
   },
   created() {
@@ -100,7 +109,15 @@ export default {
 
 <style lang="less">
 .point {
-  
+  .tab_btn {
+    margin-top: 20/40rem;
+    width: 100/40rem;
+    height: 40/40rem;
+    font-size: 20/40rem;
+    background-color: #07C160;
+    border: none;
+    color: white;
+  }
   hr {
     width: 90%;
     border: 2/40rem solid #ddd;
@@ -115,7 +132,7 @@ export default {
 
   .point_list {
     width: 90%;
-    margin: 100/40rem auto;
+    margin: 50/40rem auto;
     .item {
       // width: 70%;
       text-align: center;
@@ -131,6 +148,13 @@ export default {
 
   .btn_point {
     margin-top: 50/40rem;
+  }
+  .logout {
+    width: 90%;
+    border-radius: 20/40rem;
+    background-color: #D9001B;
+    border: none;
+    margin-left: 5%;
   }
 }
 </style>

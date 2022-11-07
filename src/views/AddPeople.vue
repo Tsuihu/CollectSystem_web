@@ -2,7 +2,7 @@
   <div class="add_people">
     <Tabbar>
       <template slot="left">
-        <button @click="back" class="tab_btn"  size="mini">返回</button>
+        <van-button icon="arrow-left" @click="back" class="tab_btn"  size="mini">返回</van-button>
       </template>
       <template slot="title">
         <h1>人员信息录入</h1>
@@ -112,7 +112,7 @@ export default {
 .add_people {
   .tab_btn {
     margin-top: 20/40rem;
-    width: 70/40rem;
+    width: 100/40rem;
     height: 40/40rem;
     font-size: 20/40rem;
     background-color: #07C160;
