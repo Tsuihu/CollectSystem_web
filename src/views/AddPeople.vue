@@ -88,6 +88,7 @@ export default {
     },
     // 添加个人信息并跳转
     onSubmit(values) {
+      // console.log(values)
       api.post('/people/addPeople.do',values).then(res => {
         console.log(res)
         if (res.code == comm.RESULT_CODE.SUCCESS) {
@@ -97,6 +98,9 @@ export default {
           },500)
         }else {
           Toast(res.errMsg)
+          setTimeout(() => {
+            this.$router.push('/people')
+          },500)
         }
       })
     },
