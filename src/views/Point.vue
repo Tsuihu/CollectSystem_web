@@ -70,6 +70,7 @@ export default {
     getAllPoint(){
       api.post('/point/getAllPoint.do').then(res => {
         if (res.code == comm.RESULT_CODE.SUCCESS) {
+
           this.pointList = res.data
         }
       })
@@ -82,6 +83,7 @@ export default {
       api.post('/point/getLikeName.do',pointForm)
         .then(res => {
           if (res.code == comm.RESULT_CODE.SUCCESS) {
+            console.log(res)
             this.pointList = res.data
           }
         })

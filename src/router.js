@@ -1,14 +1,6 @@
 import Vue from "vue";
 import Router from "vue-router";
-import Login from "./views/Login.vue";
-import Registe from "./views/Registe.vue"
-import Point from "./views/Point.vue"
-import BoxList from "./views/BoxList.vue"
-import TubeList from "./views/TubeList.vue"
-import People from "./views/People.vue"
-import AddPeople from "./views/AddPeople.vue"
-
-import notFound from "./components/404.vue";
+import Login from './views/Login.vue'
 import { Toast } from "vant";
 
 Vue.use(Router);
@@ -22,37 +14,37 @@ const router = new Router({
     {
       path: "/login",
       name: 'login',
-      component: Login,
+      component: () => import('./views/Login.vue'),
     },
     {
       path: "/registe",
       name: "registe",
-      component: Registe
+      component: () => import('./views/Registe.vue')
     },
     {
       path: "/point",
       name: "point",
-      component: Point
+      component: () => import('./views/Point.vue')
     },
     {
       path: "/boxlist",
       name: "boxlist",
-      component: BoxList
+      component: () => import('./views/BoxList.vue')
     },
     {
       path: "/tubelist",
       name: "tubelist",
-      component: TubeList
+      component: () => import('./views/TubeList.vue')
     },
     {
       path: "/people",
       name: "people",
-      component: People,
+      component: () => import('./views/People.vue'),
     },
     {
       path: "/addpeople",
       name: "addpeople",
-      component: AddPeople,
+      component: () => import('./views/AddPeople.vue'),
     }
   ],
 });

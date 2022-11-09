@@ -114,9 +114,18 @@ export default {
       }
       api.post('/box/addBox.do',info).then(res => {
         console.log(res)
-        Toast('开箱成功')
-        this.isShow = false
-        this.getBoxList()
+        if(res.code == comm.RESULT_CODE.SUCCESS) {
+          Toast(res.errMsg)
+          setTimeout(() => {
+            this.isShow = false
+            sessionStorage.setItem('boxId',res.data.boxId)
+            this.$router.push('/tubelist')
+          },500)
+        }else {
+          Toast(res.errMsg)
+          this.boxCode = ''
+        }
+        
       })
     },
     // 扫码开箱

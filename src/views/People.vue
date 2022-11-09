@@ -72,11 +72,10 @@ export default {
       api.post(`/testtube/closeTube.do?testtubeId=${testtubeId}`).then(res => {
         if (res.code == comm.RESULT_CODE.SUCCESS) {
           console.log(res)
-          if(res.data.status == 1) {
-            Toast('已封管')
-          }else {
-            Toast('封管成功')
-          }
+          this.$router.push('/tubelist')
+          setTimeout(() => {
+            Toast(res.errMsg)
+          },500)
         }
       })
     },

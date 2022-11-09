@@ -13,7 +13,7 @@
     </Tabbar>
     <div class="center">
       <van-button @click="openTube" class="btn_center" type="primary">开管</van-button>
-      <van-button @click="closeBox" class="btn_center" type="primary">封箱</van-button>
+      <van-button @click="closeBox" class="btn_center">封箱</van-button>
     </div>
 
     <div class="tube_list">
@@ -110,15 +110,17 @@ export default {
       console.log(info)
       api.post('/testtube/addTube.do',info).then(res => {
         console.log(res)
-        if (res.code == comm.RESULT_CODE.LOGIN_ERROR) {
-          Toast('此箱已封，请重新开箱')
-          this.isShow = false
-          this.checked = '',
-          this.testtubeCode = ''
+        if (res.code == comm.RESULT_CODE.SUCCESS) {
+          Toast(res.errMsg)
+          setTimeout(() => {
+            this.isShow = false
+            sessionStorage.setItem('testtubeId',res.data.testtubeId)
+            sessionStorage.setItem('testtubeCode',res.data.testtubeCode)
+            this.$router.push('/people')
+          },500)
         }else {
-          Toast('开管成功')
-          this.isShow = false
-          this.getAllTubeList()
+          Toast(res.errMsg)
+          this.testtubeCode = ''
         }
       })
     },
@@ -131,11 +133,10 @@ export default {
       let boxId = sessionStorage.getItem('boxId')
       api.post(`/box/closeBox.do?boxId=${boxId}`).then(res => {
         console.log(res)
-        if(res.data.status == 1) {
-            Toast('已封箱')
-          }else {
-            Toast('封箱成功')
-          }
+        this.$router.push('/boxlist')
+        setTimeout(() => {
+          Toast(res.errMsg)
+        },500)
       })
     },
     jumpPeoplelist(testtubeId,testtubeCode) {
@@ -170,6 +171,10 @@ export default {
     .btn_center {
       width: 260/40rem;
       border-radius: 20/40rem;
+    }
+    .btn_center:nth-child(2) {
+      color: #fff;
+      background-color: #D9001B;
     }
   }
 
