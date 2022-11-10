@@ -17,7 +17,7 @@ module.exports = {
     proxy: {
       "/api": {
         //后端的访问地址
-        target: "http://localhost:8080",
+        target: "http://localhost:5050",
         changeOrigin: true,
         pathRewrite: {
           "^/api": "/"
@@ -30,6 +30,6 @@ module.exports = {
       // }
     },
     //前端的访问地址
-    port: 8081
+    port: 8080
   }
 };
