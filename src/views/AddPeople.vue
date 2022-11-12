@@ -90,7 +90,7 @@ export default {
     onSubmit(values) {
       // console.log(values)
       api.post('/people/addPeople.do',values).then(res => {
-        console.log(res)
+        // console.log(res)
         if (res.code == comm.RESULT_CODE.SUCCESS) {
           Toast(res.errMsg)
           setTimeout(() => {
